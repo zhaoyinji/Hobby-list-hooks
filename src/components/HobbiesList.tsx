@@ -1,19 +1,18 @@
-import React, { Dispatch } from 'react'
-import { ActionType } from '../HobbyReducer'
+import React, { useContext } from 'react'
+import { HobbyContext } from '../HobbyProvider'
 
-type Props = {
-  hobbies: string[],
-  dispatch: Dispatch<ActionType>
+const HobbiesList = () => {
+  const [state, dispatch] = useContext(HobbyContext)
+  return (
+    <ul>
+      {state.hobbies.map(hobby => (
+        <li key={hobby}>
+          {hobby}
+          <button onClick={() => dispatch({ type: 'DELETE', payload: hobby})}>Delete</button>
+        </li>
+      ))}
+    </ul>
+  )
 }
-
-const HobbiesList: React.FC<Props> = ({ hobbies, dispatch }) =>
-  <ul>
-    {hobbies.map(hobby => (
-      <li key={hobby}>
-        {hobby}
-        <button onClick={() => dispatch({ type: 'DELETE', payload: hobby})}>Delete</button>
-      </li>
-    ))}
-  </ul>
 
 export default HobbiesList
